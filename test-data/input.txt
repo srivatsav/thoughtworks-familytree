@@ -1,0 +1,3 @@
+GET_RELATIONSHIP Laki Maternal-Uncle
+GET_RELATIONSHIP Yodhan Maternal-Aunt
+ADD_CHILD Chitra Aria Female 

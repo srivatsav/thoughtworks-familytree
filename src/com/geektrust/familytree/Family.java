@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.geektrust.familytree.constants.Gender;
+import com.geektrust.familytree.constants.Constants.Gender;
 
 /**
  * This is an entity of every Family. This contains all the information of a
@@ -42,7 +42,7 @@ public class Family {
 			System.out.println("PERSON_NOT_FOUND");
 			return;
 		}
-		if (!(mother.getGender() == Gender.Female)) {
+		if (!(mother.getGender() == Gender.Male)) {
 			System.out.println("CHILD_ADDITION_FAILED");
 			return;
 		}
@@ -52,7 +52,7 @@ public class Family {
 		System.out.println("CHILD_ADDITION_SUCCESS");
 
 	}
-	
+
 	/**
 	 * Gets Persons related to a given Name.
 	 * 

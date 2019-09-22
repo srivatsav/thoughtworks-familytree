@@ -3,7 +3,7 @@ package com.geektrust.familytree;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.geektrust.familytree.constants.Gender;
+import com.geektrust.familytree.constants.Constants.Gender;
 
 /**
  * This is an entity of every person in a family. This contains all the info of
@@ -53,8 +53,6 @@ public class Person {
 		brothers = new ArrayList<Person>();
 		sisters = new ArrayList<Person>();
 	}
-	
-	
 
 	public String getName() {
 		return name;
@@ -146,7 +144,7 @@ public class Person {
 			femaleChildren.get(i).addSibling(child);
 		}
 
-		if (child.getGender()==Gender.Male) {
+		if (child.getGender() == Gender.Male) {
 			maleChildren.add(child);
 			this.spouse.maleChildren.add(child);
 		} else {
@@ -154,7 +152,7 @@ public class Person {
 			this.spouse.femaleChildren.add(child);
 		}
 		child.setMother(this);
-		child.setFather(this.spouse);		
+		child.setFather(this.spouse);
 
 	}
 
@@ -164,7 +162,7 @@ public class Person {
 	 * @param sibling
 	 */
 	public void addSibling(Person sibling) {
-		if (Gender.Female==sibling.getGender())
+		if (Gender.Female == sibling.getGender())
 			sisters.add(sibling);
 		else
 			brothers.add(sibling);
