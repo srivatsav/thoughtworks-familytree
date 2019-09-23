@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.geektrust.familytree.constants.Constants;
 import com.geektrust.familytree.constants.Constants.Gender;
 
 /**
@@ -39,17 +40,17 @@ public class Family {
 	public void addChild(String motherName, String childName, Gender gender) {
 		Person mother = familyTree.get(motherName);
 		if (mother == null) {
-			System.out.println("PERSON_NOT_FOUND");
+			System.out.println(Constants.PERSON_NOT_FOUND);
 			return;
 		}
-		if (!(mother.getGender() == Gender.Male)) {
-			System.out.println("CHILD_ADDITION_FAILED");
+		if (!(mother.getGender() == Gender.Female)) {
+			System.out.println(Constants.CHILD_ADDITION_FAILED);
 			return;
 		}
 		Person child = new Person(childName, gender);
 		mother.addChild(child);
 		addPerson(child);
-		System.out.println("CHILD_ADDITION_SUCCESS");
+		System.out.println(Constants.CHILD_ADDITION_SUCCEEDED);
 
 	}
 
@@ -62,7 +63,7 @@ public class Family {
 	public void getRelation(String personName, String relation) {
 		Person person = familyTree.get(personName);
 		if (person == null) {
-			System.out.println("PERSON_NOT_FOUND");
+			System.out.println(Constants.PERSON_NOT_FOUND);
 			return;
 		}
 		switch (relation) {
@@ -81,11 +82,10 @@ public class Family {
 			System.out.println();
 			break;
 		}
-		// may be need to brothers and sisters seperately in person class.
 		case "Paternal-Uncle": {
 			Person father = person.getFather();
 			if (father == null) {
-				System.out.println("NONE");
+				System.out.println(Constants.NONE);
 				return;
 			}
 			father.printSibling(Gender.Male);
@@ -95,7 +95,7 @@ public class Family {
 		case "Maternal-Uncle": {
 			Person mother = person.getMother();
 			if (mother == null) {
-				System.out.println("NONE");
+				System.out.println(Constants.NONE);
 				return;
 			}
 			mother.printSibling(Gender.Male);
@@ -106,7 +106,7 @@ public class Family {
 		case "Maternal-Aunt": {
 			Person mother = person.getMother();
 			if (mother == null) {
-				System.out.println("NONE");
+				System.out.println(Constants.NONE);
 				return;
 			}
 			mother.printSibling(Gender.Female);
@@ -117,7 +117,7 @@ public class Family {
 		case "Paternal-Aunt": {
 			Person father = person.getFather();
 			if (father == null) {
-				System.out.println("NONE");
+				System.out.println(Constants.NONE);
 				return;
 			}
 			father.printSibling(Gender.Female);
@@ -145,7 +145,7 @@ public class Family {
 			}
 
 			if (sisterInLawPresent == false) {
-				System.out.println("NONE");
+				System.out.println(Constants.NONE);
 			}
 
 			break;
@@ -172,7 +172,7 @@ public class Family {
 			}
 
 			if (brotherInLawPresent == false) {
-				System.out.println("NONE");
+				System.out.println(Constants.NONE);
 			}
 
 			break;

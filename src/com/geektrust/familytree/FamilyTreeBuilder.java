@@ -6,8 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
-
 import com.geektrust.familytree.constants.Constants;
 import com.geektrust.familytree.constants.Constants.Gender;
 
@@ -20,31 +18,28 @@ import com.geektrust.familytree.constants.Constants.Gender;
 public class FamilyTreeBuilder {
 
 	public static void main(String[] args) {
-		
-		final Logger logger = Logger.getLogger(FamilyTreeBuilder.class);
 
 		FamilyTreeBuilder treeBuilder = new FamilyTreeBuilder();
 		Family family = new Family();
 		treeBuilder.buildFamilyTree(family);
 
 		try {
-
-			File file = new File("test-data/input.txt");
+			String filePath = args[0];
+			File file = new File(filePath);
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String str;
 			while ((str = br.readLine()) != null) {
 				String[] inputArray = str.split(" ");
 
-				switch (inputArray[0]) {				
-				case Constants.ADD_CHILD:					
+				switch (inputArray[0]) {
+				case Constants.ADD_CHILD:
 					boolean isGenderValid = Gender.isValid(inputArray[3]);
-					if(isGenderValid) {
-						family.addChild(inputArray[1], inputArray[2], Gender.valueOf(inputArray[3]));	
+					if (isGenderValid) {
+						family.addChild(inputArray[1], inputArray[2], Gender.valueOf(inputArray[3]));
 					} else {
-						logger.info("Unsupported gender entered " + inputArray[3]);
 						System.out.print(Constants.UNSUPPORTED_GENDER);
 						break;
-					}					
+					}
 				case Constants.GET_RELATIONSHIP:
 					family.getRelation(inputArray[1], inputArray[2]);
 					break;
@@ -56,11 +51,11 @@ public class FamilyTreeBuilder {
 			br.close();
 
 		} catch (FileNotFoundException e) {
-			logger.error("Input file not found in the path.");
+			System.out.println("File Not found " + e);
 		} catch (IOException e) {
-			logger.error("Could not read the input file.");
+			System.out.println("IOException " + e);
 		} catch (Exception e) {
-			logger.error("Technical Error.", e);
+			System.out.println("Technical Error " + e);
 		}
 	}
 

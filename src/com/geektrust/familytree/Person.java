@@ -3,6 +3,7 @@ package com.geektrust.familytree;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.geektrust.familytree.constants.Constants;
 import com.geektrust.familytree.constants.Constants.Gender;
 
 /**
@@ -169,6 +170,7 @@ public class Person {
 	}
 
 	/**
+	 * Prints gender specific Child.
 	 * 
 	 * @param gender
 	 */
@@ -179,7 +181,7 @@ public class Person {
 		List<Person> children = Gender.Male == gender ? maleChildren : femaleChildren;
 
 		if (children.size() == 0) {
-			System.out.print("NONE");
+			System.out.print(Constants.NONE);
 			return;
 		}
 
@@ -190,7 +192,7 @@ public class Person {
 	}
 
 	/**
-	 * 
+	 * Prints all children.
 	 */
 	public void printChild() {
 
@@ -198,7 +200,7 @@ public class Person {
 		children.addAll(femaleChildren);
 
 		if (children == null || children.size() == 0) {
-			System.out.print("NONE");
+			System.out.print(Constants.NONE);
 			return;
 		}
 		for (int i = 0; i < children.size(); i++) {
@@ -207,13 +209,13 @@ public class Person {
 	}
 
 	/**
-	 * 
+	 * Prints all siblings.
 	 */
 	public void printSibling() {
 		List<Person> siblings = brothers;
 		siblings.addAll(sisters);
 		if (siblings == null || siblings.size() == 0) {
-			System.out.print("NONE");
+			System.out.print(Constants.NONE);
 			return;
 		}
 		for (int i = 0; i < siblings.size(); i++) {
@@ -222,6 +224,7 @@ public class Person {
 	}
 
 	/**
+	 * Prints gender specific siblings.
 	 * 
 	 * @param gender
 	 */
@@ -231,7 +234,7 @@ public class Person {
 
 		List<Person> siblings = Gender.Male == gender ? brothers : sisters;
 		if (siblings.size() == 0) {
-			System.out.print("NONE");
+			System.out.print(Constants.NONE);
 			return;
 		}
 		for (int i = 0; i < siblings.size(); i++) {
@@ -241,6 +244,7 @@ public class Person {
 	}
 
 	/**
+	 * Get siblings based on gender.
 	 * 
 	 * @param gender
 	 * @return
