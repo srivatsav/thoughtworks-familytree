@@ -20,6 +20,10 @@ public class FamilyTreeBuilder {
 	public static void main(String[] args) {
 
 		FamilyTreeBuilder treeBuilder = new FamilyTreeBuilder();
+		familyBootStrapper(args, treeBuilder);
+	}
+
+	private static void familyBootStrapper(String[] args, FamilyTreeBuilder treeBuilder) {
 		Family family = new Family();
 		treeBuilder.buildFamilyTree(family);
 
