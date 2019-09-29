@@ -66,29 +66,29 @@ public class FamilyTreeBuilder {
 	 */
 	private void buildFamilyTree(Family family) {
 
-		Person king = new Person("King Shan", Gender.Male);
-		Person queen = new Person("Queen Anga", Gender.Female, king);
+		Person king = new Person(Constants.KING_SHAN, Gender.Male);
+		Person queen = new Person(Constants.QUEEN_ANGA, Gender.Female, king);
 		king.setSpouse(queen);
 		family.addPerson(king);
 		family.addPerson(queen);
 
-		Person amba = new Person("Amba", Gender.Female);
-		Person chit = new Person("Chit", Gender.Male, amba);
+		Person amba = new Person(Constants.AMBA, Gender.Female);
+		Person chit = new Person(Constants.CHIT, Gender.Male, amba);
 		amba.setSpouse(chit);
 		queen.addChild(chit);
 		family.addPerson(amba);
 		family.addPerson(chit);
 
-		Person tritha = new Person("Tritha", Gender.Female);
-		Person vritha = new Person("Vritha", Gender.Male);
+		Person tritha = new Person(Constants.TRITHA, Gender.Female);
+		Person vritha = new Person(Constants.VRITHA, Gender.Male);
 		amba.addChild(tritha);
 		amba.addChild(vritha);
 		family.addPerson(tritha);
 		family.addPerson(vritha);
 
-		Person jaya = new Person("Jaya", Gender.Male);
-		Person dritha = new Person("Dritha", Gender.Female, jaya);
-		Person yodhan = new Person("Yodhan", Gender.Male);
+		Person jaya = new Person(Constants.JAYA, Gender.Male);
+		Person dritha = new Person(Constants.DRITHA, Gender.Female, jaya);
+		Person yodhan = new Person(Constants.YODHAN, Gender.Male);
 		jaya.setSpouse(dritha);
 		dritha.addChild(yodhan);
 		amba.addChild(dritha);
@@ -96,14 +96,14 @@ public class FamilyTreeBuilder {
 		family.addPerson(dritha);
 		family.addPerson(yodhan);
 
-		Person ish = new Person("Ish", Gender.Male);
+		Person ish = new Person(Constants.ISH, Gender.Male);
 		queen.addChild(ish);
 		family.addPerson(ish);
 
-		Person vich = new Person("Vich", Gender.Male);
-		Person lika = new Person("Lika", Gender.Female, vich);
-		Person vila = new Person("Vila", Gender.Female);
-		Person chika = new Person("Chika", Gender.Female);
+		Person vich = new Person(Constants.VICH, Gender.Male);
+		Person lika = new Person(Constants.LIKA, Gender.Female, vich);
+		Person vila = new Person(Constants.VILA, Gender.Female);
+		Person chika = new Person(Constants.CHIKA, Gender.Female);
 		vich.setSpouse(lika);
 		lika.addChild(vila);
 		lika.addChild(chika);
@@ -113,22 +113,22 @@ public class FamilyTreeBuilder {
 		family.addPerson(vila);
 		family.addPerson(chika);
 
-		Person aras = new Person("Aras", Gender.Male);
-		Person chitra = new Person("Chitra", Gender.Female, aras);
+		Person aras = new Person(Constants.ARAS, Gender.Male);
+		Person chitra = new Person(Constants.CHITRA, Gender.Female, aras);
 		aras.setSpouse(chitra);
 		queen.addChild(aras);
 		family.addPerson(aras);
 		family.addPerson(chitra);
 
-		Person ahit = new Person("Ahit", Gender.Male);
+		Person ahit = new Person(Constants.AHIT, Gender.Male);
 		chitra.addChild(ahit);
 		family.addPerson(ahit);
 
-		Person arit = new Person("Arit", Gender.Male);
-		Person jnki = new Person("Jnki", Gender.Female, arit);
+		Person arit = new Person(Constants.ARIT, Gender.Male);
+		Person jnki = new Person(Constants.JNKI, Gender.Female, arit);
 		arit.setSpouse(jnki);
-		Person laki = new Person("Laki", Gender.Male);
-		Person lavnya = new Person("Lavnya", Gender.Female);
+		Person laki = new Person(Constants.LAKI, Gender.Male);
+		Person lavnya = new Person(Constants.LAVNYA, Gender.Female);
 		chitra.addChild(jnki);
 		jnki.addChild(laki);
 		jnki.addChild(lavnya);
@@ -137,25 +137,25 @@ public class FamilyTreeBuilder {
 		family.addPerson(laki);
 		family.addPerson(lavnya);
 
-		Person vyan = new Person("Vyan", Gender.Male);
-		Person satya = new Person("Satya", Gender.Female, vyan);
+		Person vyan = new Person(Constants.VYAN, Gender.Male);
+		Person satya = new Person(Constants.SATYA, Gender.Female, vyan);
 		vyan.setSpouse(satya);
 		queen.addChild(satya);
-		Person atya = new Person("Atya", Gender.Female);
+		Person atya = new Person(Constants.ATYA, Gender.Female);
 		satya.addChild(atya);
-		Person vyas = new Person("Vyas", Gender.Male);
-		Person krpi = new Person("Krpi", Gender.Female, vyas);
+		Person vyas = new Person(Constants.VYAS, Gender.Male);
+		Person krpi = new Person(Constants.KRPI, Gender.Female, vyas);
 		vyas.setSpouse(krpi);
 		satya.addChild(vyas);
-		Person kriya = new Person("Kriya", Gender.Male);
-		Person krithi = new Person("Krithi", Gender.Female);
+		Person kriya = new Person(Constants.KRIYA, Gender.Male);
+		Person krithi = new Person(Constants.KRITHI, Gender.Female);
 		krpi.addChild(kriya);
 		krpi.addChild(krithi);
-		Person asva = new Person("Asva", Gender.Male);
-		Person satvy = new Person("Satvy", Gender.Female, asva);
+		Person asva = new Person(Constants.ASVA, Gender.Male);
+		Person satvy = new Person(Constants.SATVY, Gender.Female, asva);
 		asva.setSpouse(satvy);
 		satya.addChild(asva);
-		Person vasa = new Person("Vasa", Gender.Male);
+		Person vasa = new Person(Constants.VASA, Gender.Male);
 		satvy.addChild(vasa);
 		family.addPerson(vyan);
 		family.addPerson(satya);

@@ -3,7 +3,6 @@ package com.geektrust.familytree;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.geektrust.familytree.constants.Constants;
 import com.geektrust.familytree.constants.Constants.Gender;
 
 /**
@@ -20,8 +19,7 @@ public class Person {
 	private Person father;
 	private List<Person> brothers;
 	private List<Person> sisters;
-	private List<Person> maleChildren;
-	private List<Person> femaleChildren;
+	private List<Person> children;
 	private Gender gender;
 
 	/**
@@ -33,10 +31,9 @@ public class Person {
 	Person(String name, Gender gender) {
 		this.name = name;
 		this.gender = gender;
-		maleChildren = new ArrayList<Person>();
-		femaleChildren = new ArrayList<Person>();
 		brothers = new ArrayList<Person>();
 		sisters = new ArrayList<Person>();
+		children = new ArrayList<Person>();
 	}
 
 	/**
@@ -49,82 +46,49 @@ public class Person {
 		this.name = name;
 		this.gender = gender;
 		this.spouse = spouse;
-		maleChildren = new ArrayList<Person>();
-		femaleChildren = new ArrayList<Person>();
 		brothers = new ArrayList<Person>();
 		sisters = new ArrayList<Person>();
+		children = new ArrayList<Person>();
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Person getSpouse() {
 		return spouse;
-	}
-
-	public void setSpouse(Person spouse) {
-		this.spouse = spouse;
 	}
 
 	public Person getMother() {
 		return mother;
 	}
 
-	public void setMother(Person mother) {
-		this.mother = mother;
-	}
-
 	public Person getFather() {
 		return father;
 	}
 
-	public void setFather(Person father) {
-		this.father = father;
+	public void setSpouse(Person spouse) {
+		this.spouse = spouse;
 	}
 
 	public List<Person> getBrothers() {
 		return brothers;
 	}
 
-	public void setBrothers(List<Person> brothers) {
-		this.brothers = brothers;
-	}
-
 	public List<Person> getSisters() {
 		return sisters;
-	}
-
-	public void setSisters(List<Person> sisters) {
-		this.sisters = sisters;
-	}
-
-	public List<Person> getMaleChildren() {
-		return maleChildren;
-	}
-
-	public void setMaleChildren(List<Person> maleChildren) {
-		this.maleChildren = maleChildren;
-	}
-
-	public List<Person> getFemaleChildren() {
-		return femaleChildren;
-	}
-
-	public void setFemaleChildren(List<Person> femaleChildren) {
-		this.femaleChildren = femaleChildren;
 	}
 
 	public Gender getGender() {
 		return gender;
 	}
 
-	public void setGender(Gender gender) {
-		this.gender = gender;
+	public void setMother(Person mother) {
+		this.mother = mother;
+	}
+
+	public void setFather(Person father) {
+		this.father = father;
 	}
 
 	/**
@@ -135,23 +99,12 @@ public class Person {
 	 */
 	public void addChild(Person child) {
 
-		for (int i = 0; i < maleChildren.size(); i++) {
-			child.addSibling(maleChildren.get(i));
-			maleChildren.get(i).addSibling(child);
+		for (int i = 0; i < children.size(); i++) {
+			child.addSibling(children.get(i));
+			children.get(i).addSibling(child);
 		}
-
-		for (int i = 0; i < femaleChildren.size(); i++) {
-			child.addSibling(femaleChildren.get(i));
-			femaleChildren.get(i).addSibling(child);
-		}
-
-		if (child.getGender() == Gender.Male) {
-			maleChildren.add(child);
-			this.spouse.maleChildren.add(child);
-		} else {
-			femaleChildren.add(child);
-			this.spouse.femaleChildren.add(child);
-		}
+		children.add(child);
+		this.spouse.children.add(child);
 		child.setMother(this);
 		child.setFather(this.spouse);
 
@@ -170,77 +123,30 @@ public class Person {
 	}
 
 	/**
-	 * Prints gender specific Child.
+	 * Returns gender specific Child.
 	 * 
 	 * @param gender
 	 */
-	public void printChild(Gender gender) {
+	public List<Person> getChildren(Gender gender) {
+		List<Person> filteredChildren = new ArrayList<>();
 		if (gender == null)
-			return;
-
-		List<Person> children = Gender.Male == gender ? maleChildren : femaleChildren;
-
-		if (children.size() == 0) {
-			System.out.print(Constants.NONE);
-			return;
+			return filteredChildren;
+		for (Person person : children) {
+			if (person.getGender() == gender) {
+				filteredChildren.add(person);
+			}
 		}
-
-		for (int i = 0; i < children.size(); i++) {
-			System.out.print(children.get(i).name + " ");
-		}
-		return;
+		return filteredChildren;
 	}
 
 	/**
-	 * Prints all children.
+	 * Returns all siblings.
 	 */
-	public void printChild() {
-
-		List<Person> children = maleChildren;
-		children.addAll(femaleChildren);
-
-		if (children == null || children.size() == 0) {
-			System.out.print(Constants.NONE);
-			return;
-		}
-		for (int i = 0; i < children.size(); i++) {
-			System.out.print(children.get(i).name + " ");
-		}
-	}
-
-	/**
-	 * Prints all siblings.
-	 */
-	public void printSibling() {
-		List<Person> siblings = brothers;
+	public List<Person> getSiblings() {
+		List<Person> siblings = new ArrayList<>();
+		siblings.addAll(brothers);
 		siblings.addAll(sisters);
-		if (siblings == null || siblings.size() == 0) {
-			System.out.print(Constants.NONE);
-			return;
-		}
-		for (int i = 0; i < siblings.size(); i++) {
-			System.out.print(siblings.get(i).name + " ");
-		}
-	}
-
-	/**
-	 * Prints gender specific siblings.
-	 * 
-	 * @param gender
-	 */
-	public void printSibling(Gender gender) {
-		if (gender == null)
-			return;
-
-		List<Person> siblings = Gender.Male == gender ? brothers : sisters;
-		if (siblings.size() == 0) {
-			System.out.print(Constants.NONE);
-			return;
-		}
-		for (int i = 0; i < siblings.size(); i++) {
-			System.out.print(siblings.get(i).name + " ");
-		}
-		return;
+		return siblings;
 	}
 
 	/**

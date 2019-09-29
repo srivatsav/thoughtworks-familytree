@@ -66,117 +66,79 @@ public class Family {
 			System.out.println(Constants.PERSON_NOT_FOUND);
 			return;
 		}
+
 		switch (relation) {
-		case "Son": {
-			person.printChild(Gender.Male);
-			System.out.println();
+		case Constants.SON: {
+			List<Person> children = person.getChildren(Gender.Male);
+			printFoundPersons(children);
 			break;
 		}
-		case "daughter": {
-			person.printChild(Gender.Female);
-			System.out.println();
+		case Constants.DAUGHTER: {
+			List<Person> children = person.getChildren(Gender.Female);
+			printFoundPersons(children);
 			break;
 		}
-		case "siblings": {
-			person.printSibling();
-			System.out.println();
+		case Constants.SIBLINGS: {
+			List<Person> siblings = person.getSiblings();
+			printFoundPersons(siblings);
 			break;
 		}
-		case "Paternal-Uncle": {
+		case Constants.PATERNAL_UNCLE: {
 			Person father = person.getFather();
 			if (father == null) {
-				System.out.println(Constants.NONE);
+				printFoundNobody();
 				return;
 			}
-			father.printSibling(Gender.Male);
-			System.out.println();
+			List<Person> paternalUncles = father.getSiblings(Gender.Male);
+			printFoundPersons(paternalUncles);
 			break;
 		}
-		case "Maternal-Uncle": {
+		case Constants.MATERNAL_UNCLE: {
 			Person mother = person.getMother();
 			if (mother == null) {
-				System.out.println(Constants.NONE);
+				printFoundNobody();
 				return;
 			}
-			mother.printSibling(Gender.Male);
-			System.out.println();
+			List<Person> maternalUncles = mother.getSiblings(Gender.Male);
+			printFoundPersons(maternalUncles);
 			break;
 		}
 
-		case "Maternal-Aunt": {
+		case Constants.MATERNAL_AUNT: {
 			Person mother = person.getMother();
 			if (mother == null) {
-				System.out.println(Constants.NONE);
+				printFoundNobody();
 				return;
 			}
-			mother.printSibling(Gender.Female);
-			System.out.println();
+			List<Person> maternalAunts = mother.getSiblings(Gender.Female);
+			printFoundPersons(maternalAunts);
 			break;
 		}
 
-		case "Paternal-Aunt": {
+		case Constants.PATERNAL_AUNT: {
 			Person father = person.getFather();
 			if (father == null) {
-				System.out.println(Constants.NONE);
+				printFoundNobody();
 				return;
 			}
-			father.printSibling(Gender.Female);
-			System.out.println();
+			List<Person> paternalAunts = father.getSiblings(Gender.Female);
+			printFoundPersons(paternalAunts);
 			break;
 		}
 
-		case "Sister-In-Law": {
+		case Constants.SISTER_IN_LAW: {
 			Person spouse = person.getSpouse();
-			boolean sisterInLawPresent = false;
-
-			if (spouse != null && spouse.getSisters() != null && spouse.getSisters().size() > 0) {
-				sisterInLawPresent = true;
-				spouse.printSibling(Gender.Female);
-				System.out.println();
-			}
-
-			List<Person> maleSiblings = person.getSiblings(Gender.Male);
-			if (maleSiblings != null && maleSiblings.size() > 0) {
-				sisterInLawPresent = true;
-				for (int i = 0; i < maleSiblings.size(); i++) {
-					if (maleSiblings.get(i).getSpouse() != null)
-						System.out.println(maleSiblings.get(i).getSpouse().getName() + " ");
-				}
-			}
-
-			if (sisterInLawPresent == false) {
-				System.out.println(Constants.NONE);
-			}
-
+			checkAndPrintSistersOfSpouse(spouse);
+			checkAndPrintWivesOfSiblings(person);
 			break;
 
 		}
 
-		case "Brother-In-Law": {
+		case Constants.BROTHER_IN_LAW: {
 			Person spouse = person.getSpouse();
-			boolean brotherInLawPresent = false;
-
-			if (spouse != null && spouse.getBrothers() != null && spouse.getBrothers().size() > 0) {
-				brotherInLawPresent = true;
-				spouse.printSibling(Gender.Male);
-				System.out.println();
-			}
-
-			List<Person> femaleSiblings = person.getSiblings(Gender.Female);
-			if (femaleSiblings != null && femaleSiblings.size() > 0) {
-				brotherInLawPresent = true;
-				for (int i = 0; i < femaleSiblings.size(); i++) {
-					if (femaleSiblings.get(i).getSpouse() != null)
-						System.out.println(femaleSiblings.get(i).getSpouse().getName() + " ");
-				}
-			}
-
-			if (brotherInLawPresent == false) {
-				System.out.println(Constants.NONE);
-			}
-
+			checkAndPrintBrothersOfSpouse(spouse);
+			checkAndPrintHusbandsOfSiblings(person);
 			break;
-
 		}
 
 		default:
@@ -184,6 +146,91 @@ public class Family {
 
 		}
 
+	}
+
+	/**
+	 * Print the list of persons in the desired format.
+	 * 
+	 * @param persons
+	 */
+	private void printFoundPersons(List<Person> persons) {
+		if (persons == null || persons.size() == 0) {
+			printFoundNobody();
+			return;
+		}
+		for (int i = 0; i < persons.size(); i++) {
+			System.out.print(persons.get(i).getName() + " ");
+		}
+		System.out.println();
+	}
+
+	/**
+	 * Print when nobody is found for a given relation.
+	 */
+	private void printFoundNobody() {
+		System.out.println(Constants.NONE);
+	}
+
+	/**
+	 * Checks for Husbands of Siblings.
+	 * 
+	 * @param person
+	 */
+	private void checkAndPrintHusbandsOfSiblings(Person person) {
+		List<Person> femaleSiblings = person.getSiblings(Gender.Female);
+		if (femaleSiblings != null && femaleSiblings.size() > 0) {
+			for (int i = 0; i < femaleSiblings.size(); i++) {
+				if (femaleSiblings.get(i).getSpouse() != null)
+					System.out.println(femaleSiblings.get(i).getSpouse().getName() + " ");
+			}
+		} else {
+			printFoundNobody();
+		}
+	}
+
+	/**
+	 * Checks for Wives of Siblings.
+	 * 
+	 * @param person
+	 */
+	private void checkAndPrintWivesOfSiblings(Person person) {
+		List<Person> maleSiblings = person.getSiblings(Gender.Male);
+		if (maleSiblings != null && maleSiblings.size() > 0) {
+			for (int i = 0; i < maleSiblings.size(); i++) {
+				if (maleSiblings.get(i).getSpouse() != null)
+					System.out.println(maleSiblings.get(i).getSpouse().getName() + " ");
+			}
+		} else {
+			printFoundNobody();
+		}
+	}
+
+	/**
+	 * Checks for Sisters of Spouse.
+	 * 
+	 * @param spouse
+	 */
+	private void checkAndPrintSistersOfSpouse(Person spouse) {
+		if (spouse != null && spouse.getSisters() != null && spouse.getSisters().size() > 0) {
+			List<Person> sistersOfSpouse = spouse.getSiblings(Gender.Female);
+			printFoundPersons(sistersOfSpouse);
+		} else {
+			printFoundNobody();
+		}
+	}
+
+	/**
+	 * Checks for Brothers of Spouse.
+	 * 
+	 * @param spouse
+	 */
+	private void checkAndPrintBrothersOfSpouse(Person spouse) {
+		if (spouse != null && spouse.getBrothers() != null && spouse.getBrothers().size() > 0) {
+			List<Person> brothersOfSpouse = spouse.getSiblings(Gender.Male);
+			printFoundPersons(brothersOfSpouse);
+		} else {
+			printFoundNobody();
+		}
 	}
 
 }
